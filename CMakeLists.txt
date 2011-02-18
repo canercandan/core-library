@@ -64,8 +64,6 @@ SET(SAMPLE_SRCS)
 ######################################################################################
 
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(application)
-ADD_SUBDIRECTORY(test)
 ADD_SUBDIRECTORY(doc)
 
 ######################################################################################
