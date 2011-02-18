@@ -33,9 +33,9 @@
 #include <fstream>
 #include <iomanip>
 
-#include <utils/compatibility.h>
+#include "utils/compatibility.h"
 
-#include <Parser.h>
+#include "Parser.h"
 
 namespace core_library
 {

@@ -32,7 +32,7 @@
 #include <map>
 #include <vector>
 
-#include <FunctorStore.h>
+#include "FunctorStore.h"
 
 namespace core_library
 {

@@ -28,7 +28,7 @@
 #pragma warning(disable:4786)
 #endif
 
-#include <Persistent.h>
+#include "Persistent.h"
 
 namespace core_library
 {

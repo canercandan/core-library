@@ -29,8 +29,8 @@
 #pragma warning(disable:4786)
 #endif
 
-#include <FunctorStore.h>
-#include <FunctorBase.h>
+#include "FunctorStore.h"
+#include "FunctorBase.h"
 
 namespace core_library
 {
