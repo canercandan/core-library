@@ -373,7 +373,6 @@ namespace core_library
     inline std::string ValueParam<std::vector<void*> >::getValue(void) const
     {
 	throw std::runtime_error("I cannot getValue for a std::vector<EOT*>");
-	return std::string("");
     }
 
     template <>
