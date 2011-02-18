@@ -19,6 +19,7 @@ SET(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT
 ### 2) Include useful features
 ######################################################################################
 
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 
 ######################################################################################
 
