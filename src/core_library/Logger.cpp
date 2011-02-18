@@ -18,8 +18,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 Authors:
-	Johann Dréo <johann.dreo@thalesgroup.com>
-	Caner Candan <caner.candan@thalesgroup.com>
+Johann Dréo <johann.dreo@thalesgroup.com>
+Caner Candan <caner.candan@thalesgroup.com>
 */
 
 #ifdef _INTERIX
@@ -33,20 +33,17 @@ Authors:
 #include <cstdio> // used to define EOF
 
 #include <iostream>
-#include <sstream>
-#include <exception>
-#include <stdexcept>
 #include <locale>
 
 #include "Logger.h"
 
 namespace core_library
 {
-    Logger	log;
+    Logger logger;
 
     Logger::Logger()
 	: std::ostream(&_obuf),
-	  _selectedLevel(core_library::progress), _contextLevel(core_library::quiet),
+	  _selectedLevel(progress), _contextLevel(quiet),
 	  _fd(2), _obuf(_fd, _contextLevel, _selectedLevel)
     {
 	_standard_io_streams[&std::cout] = 1;
@@ -55,30 +52,27 @@ namespace core_library
 
 	// /!\ If you want to add a level dont forget to add it at the header file in the enumerator Levels
 
-	addLevel("quiet", core_library::quiet);
-	addLevel("errors", core_library::errors);
-	addLevel("warnings", core_library::warnings);
-	addLevel("progress", core_library::progress);
-	addLevel("logging", core_library::logging);
-	addLevel("debug", core_library::debug);
-	addLevel("xdebug", core_library::xdebug);
+	addLevel("quiet", quiet);
+	addLevel("errors", errors);
+	addLevel("warnings", warnings);
+	addLevel("progress", progress);
+	addLevel("logging", logging);
+	addLevel("debug", debug);
+	addLevel("xdebug", xdebug);
     }
-
-    Logger::~Logger()
-    {}
 
     std::string	Logger::className() const
     {
 	return ("Logger");
     }
 
-    void	Logger::addLevel(std::string name, core_library::Levels level)
+    void Logger::addLevel(std::string name, Levels level)
     {
 	_levels[name] = level;
 	_sortedLevels.push_back(name);
     }
 
-    void	Logger::printLevels() const
+    void Logger::printLevels() const
     {
 	std::cout << "Available verbose levels:" << std::endl;
 
@@ -91,25 +85,25 @@ namespace core_library
 	::exit(0);
     }
 
-    Logger&	operator<<(Logger& l, const core_library::Levels lvl)
+    Logger& operator<<(Logger& l, const Levels lvl)
     {
 	l._contextLevel = lvl;
 	return l;
     }
 
-    Logger&	operator<<(Logger& l, core_library::file f)
+    Logger& operator<<(Logger& l, file f)
     {
 	l._fd = ::open(f._f.c_str(), O_WRONLY | O_APPEND | O_CREAT, 0644);
 	return l;
     }
 
-    Logger&	operator<<(Logger& l, core_library::setlevel v)
+    Logger& operator<<(Logger& l, setlevel v)
     {
 	l._selectedLevel = (v._lvl < 0 ? l._levels[v._v] : v._lvl);
 	return l;
     }
 
-    Logger&	operator<<(Logger& l, std::ostream& os)
+    Logger& operator<<(Logger& l, std::ostream& os)
     {
 	if (l._standard_io_streams.find(&os) != l._standard_io_streams.end())
 	    {
@@ -119,8 +113,8 @@ namespace core_library
     }
 
     Logger::outbuf::outbuf(const int& fd,
-			     const core_library::Levels& contexlvl,
-			     const core_library::Levels& selectedlvl)
+			   const Levels& contexlvl,
+			   const Levels& selectedlvl)
 	: _fd(fd), _contextLevel(contexlvl), _selectedLevel(selectedlvl)
     {}
 

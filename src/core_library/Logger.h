@@ -29,9 +29,9 @@ Authors:
 
  Here's an example explaning how to use Logger:
  \code
- #include <iostream>
- #include <utils/Logger.h>
- #include <utils/ParserLogger.h>
+ #include <core_library/core_library>
+
+ using namespace core_library;
 
  int	main(int ac, char** av)
  {
@@ -45,36 +45,36 @@ Authors:
  // At this time we are switching to warning message and messages
  // which are going to follow it are going to be warnings message too.
  // These messages can be displayed only if the user level (sets with
- // core_library::setlevel function) is set to core_library::warnings.
- core_library::log << core_library::warnings;
+ // setlevel function) is set to warnings.
+ logger << warnings;
 
- // With the following core_library::file function we are defining that
+ // With the following file function we are defining that
  // all future logs are going to this new file resource which is
  // test.txt
- core_library::log << core_library::file("test.txt") << "In FILE" << std::endl;
+ logger << file("test.txt") << "In FILE" << std::endl;
 
  // Now we are changing again the resources destination to cout which
  // is the standard output.
- core_library::log << std::cout << "In COUT" << std::endl;
+ logger << std::cout << "In COUT" << std::endl;
 
  // Here are 2 differents examples of how to set the errors user level
  // in using either a string or an identifier.
- core_library::log << core_library::setlevel("errors");
- core_library::log << core_library::setlevel(core_library::errors);
+ logger << setlevel("errors");
+ logger << setlevel(errors);
 
  // Now we are writting a message, that will be displayed only if we are above the "quiet" level
- core_library::log << core_library::quiet << "1) Must be in quiet mode to see that" << std::endl;
+ logger << quiet << "1) Must be in quiet mode to see that" << std::endl;
 
  // And so on...
- core_library::log << core_library::setlevel(core_library::warnings) << core_library::warnings << "2) Must be in warnings mode to see that" << std::endl;
+ logger << setlevel(warnings) << warnings << "2) Must be in warnings mode to see that" << std::endl;
 
- core_library::log << core_library::setlevel(core_library::logging);
+ logger << setlevel(loggerging);
 
- core_library::log << core_library::errors;
- core_library::log << "3) Must be in errors mode to see that";
- core_library::log << std::endl;
+ logger << errors;
+ logger << "3) Must be in errors mode to see that";
+ logger << std::endl;
 
- core_library::log << core_library::debug << 4 << ')'
+ logger << debug << 4 << ')'
  << " Must be in debug mode to see that\n";
 
  return 0;
@@ -113,7 +113,7 @@ namespace core_library
      * file
      * this structure combined with the friend operator<< below is an easy way to select a file as output.
      */
-    struct	file
+    struct file
     {
 	file(const std::string f);
 	const std::string _f;
@@ -134,16 +134,14 @@ namespace core_library
     /**
      * Logger
      * Class providing a verbose management through EO
-     * Use of a global variable core_library::log to easily use the logger like std::cout
+     * Use of a global variable logger to easily use the logger like std::cout
      */
-    class	Logger : public Object,
-			   public std::ostream
+    class Logger : public Object, public std::ostream
     {
     public:
 	Logger();
-	~Logger();
 
-	virtual std::string	className() const;
+	virtual std::string className() const;
 
 	//! Print the available levels on the standard output
 	void printLevels() const;
@@ -151,7 +149,7 @@ namespace core_library
 	/*! Returns the selected levels, that is the one asked by the user
 	 *
 	 * Use this function if you want to be able to compare selected levels to a given one, like:
-	 * if( core_library::log.getLevelSelected() >= core_library::progress ) {...}
+	 * if( logger.getLevelSelected() >= progress ) {...}
 	 */
 	Levels getLevelSelected() const { return _selectedLevel; }
 
@@ -161,86 +159,86 @@ namespace core_library
 	Levels getLevelContext() const { return _contextLevel; }
 
     protected:
-	void	addLevel(std::string name, Levels level);
+	void addLevel(std::string name, Levels level);
 
     private:
 	/**
 	 * outbuf
 	 * this class inherits from std::streambuf which is used by Logger to write the buffer in an output stream
 	 */
-	class	outbuf : public std::streambuf
+	class outbuf : public std::streambuf
 	{
 	public:
 	    outbuf(const int& fd,
 		   const Levels& contexlvl,
 		   const Levels& selectedlvl);
 	protected:
-	    virtual int	overflow(int_type c);
+	    virtual int overflow(int_type c);
 	private:
-	    const int&		_fd;
-	    const Levels&	_contextLevel;
-	    const Levels&	_selectedLevel;
+	    const int& _fd;
+	    const Levels& _contextLevel;
+	    const Levels& _selectedLevel;
 	};
 
     private:
 	/**
 	 * MapLevel is the type used by the map member _levels.
 	 */
-	typedef std::map<std::string, Levels>	MapLevel;
+	typedef std::map<std::string, Levels> MapLevel;
 
     public:
 	/**
 	 * operator<< used there to set a verbose mode.
 	 */
-	friend Logger&	operator<<(Logger&, const Levels);
+	friend Logger& operator<<(Logger&, const Levels);
 
 	/**
 	 * operator<< used there to set a filename through the class file.
 	 */
-	friend Logger&	operator<<(Logger&, file);
+	friend Logger& operator<<(Logger&, file);
 
 	/**
 	 * operator<< used there to set a verbose level through the class setlevel.
 	 */
-	friend Logger&	operator<<(Logger&, setlevel);
+	friend Logger& operator<<(Logger&, setlevel);
 
 	/**
 	 * operator<< used there to be able to use std::cout to say that we wish to redirect back the buffer to a standard output.
 	 */
-	friend Logger&	operator<<(Logger&, std::ostream&);
+	friend Logger& operator<<(Logger&, std::ostream&);
 
     private:
 	/**
 	 * _selectedLevel is the member storing verbose level setted by the user thanks to operator()
 	 */
-	Levels	_selectedLevel;
-	Levels	_contextLevel;
+	Levels _selectedLevel;
+	Levels _contextLevel;
 
 	/**
 	 * _fd in storing the file descriptor at this place we can disable easily the buffer in
 	 * changing the value at -1. It is used by operator <<.
 	 */
-	int		_fd;
+	int _fd;
 
 	/**
 	 * _obuf std::ostream mandates to use a buffer. _obuf is a outbuf inheriting of std::streambuf.
 	 */
-	outbuf	_obuf;
+	outbuf _obuf;
 
 	/**
 	 * _levels contains all the existing level order by position
 	 */
-	MapLevel	_levels;
+	MapLevel _levels;
 
 	/**
 	 * _levelsOrder is just a list to keep the order of levels
 	 */
-	std::vector<std::string>	_sortedLevels;
+	std::vector<std::string> _sortedLevels;
 
 	/**
 	 * _standard_io_streams
 	 */
-	std::map< std::ostream*, int >	_standard_io_streams;
+	std::map< std::ostream*, int > _standard_io_streams;
     };
     /** @example t-Logger.cpp
      */
@@ -248,7 +246,7 @@ namespace core_library
     /**
      * log is an external global variable defined to easily use a same way than std::cout to write a log.
      */
-    extern Logger	log;
+    extern Logger logger;
 
 }
 

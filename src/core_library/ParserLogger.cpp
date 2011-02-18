@@ -49,7 +49,7 @@ namespace core_library
 
 	if ( ! _output.value().empty() )
 	    {
-		core_library::log << core_library::file( _output.value() );
+		logger << file( _output.value() );
 	    }
 
 	//------------------------------------------------------------------
@@ -61,7 +61,7 @@ namespace core_library
 
 	if ( _printVerboseLevels.value() )
 	    {
-		core_library::log.printLevels();
+		logger.printLevels();
 	    }
 
 	//------------------------------------------------------------------
@@ -72,9 +72,9 @@ namespace core_library
     {}
 
     //! make_verbose gets level of verbose and sets it in Logger
-    void	make_verbose(ParserLogger& _parser)
+    void make_verbose(ParserLogger& _parser)
     {
-	core_library::log << core_library::setlevel(_parser._verbose.value());
+	logger << setlevel(_parser._verbose.value());
     }
 
 }
