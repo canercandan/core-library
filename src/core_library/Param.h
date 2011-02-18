@@ -379,7 +379,6 @@ namespace core_library
     inline void ValueParam<std::vector<void*> >::setValue(const std::string&)
     {
 	throw std::runtime_error("I cannot setValue for a std::vector<EOT*>");
-	return;
     }
 
     /*template <class ContainerType>
