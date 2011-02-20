@@ -42,6 +42,8 @@
 #include "FunctorStore.h"
 #include "State.h"
 
+#include "FO.h"
+#include "UO.h"
 #include "BO.h"
 
 #endif // !_core_library_
