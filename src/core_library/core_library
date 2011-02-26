@@ -46,6 +46,10 @@
 #include "UO.h"
 #include "BO.h"
 
+#include "Continue.h"
+#include "IterContinue.h"
+#include "TolContinue.h"
+
 #endif // !_core_library_
 
 // Local Variables:
