@@ -69,6 +69,14 @@ namespace core_library
 	}
     };
 
+    template < typename Atom >
+    class DummyContinue : public Continue< Atom >
+    {
+	bool operator()(const Atom&){ return true; }
+
+	virtual std::string className() const { return "DummyContinue"; }
+    };
+
 }
 
 #endif // !_core_library_Continue_h
