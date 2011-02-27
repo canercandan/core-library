@@ -27,7 +27,7 @@
 #ifndef _core_library_TolContinue_h
 #define _core_library_TolContinue_h
 
-#include <Continue.h>
+#include "Continue.h"
 
 namespace core_library
 {
