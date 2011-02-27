@@ -47,6 +47,10 @@
 #include "BO.h"
 
 #include "Continue.h"
+#include "Updater.h"
+#include "Monitor.h"
+#include "Stat.h"
+
 #include "IterContinue.h"
 #include "TolContinue.h"
 
