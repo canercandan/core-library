@@ -26,6 +26,7 @@
 #include "Param.h"
 #include "Parser.h"
 #include "ParserLogger.h"
+#include "make_help.h"
 
 #include "Logger.h"
 
