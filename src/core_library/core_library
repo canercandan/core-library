@@ -55,6 +55,10 @@
 #include "IterContinue.h"
 #include "TolContinue.h"
 
+#include "TimeCounter.h"
+#include "StdoutMonitor.h"
+#include "OStreamMonitor.h"
+
 #endif // !_core_library_
 
 // Local Variables:
