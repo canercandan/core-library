@@ -49,7 +49,7 @@ namespace core_library
 	StdoutMonitor(bool _verbose, std::string _delim = "\t", unsigned int _width=20, char _fill=' ' ) :
 	    OStreamMonitor( std::cout, _verbose, _delim, _width, _fill)
 	{
-	    logger << warnings << "WARNING: the use of the verbose parameter in eoStdutMonitor constructor is deprecated and will be removed in the next release" << std::endl;
+	    logger << warnings << "WARNING: the use of the verbose parameter in StdoutMonitor constructor is deprecated and will be removed in the next release" << std::endl;
 	}
 
 	StdoutMonitor(std::string _delim = "\t", unsigned int _width=20, char _fill=' ' ) :
