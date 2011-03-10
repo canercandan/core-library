@@ -48,7 +48,7 @@ namespace core_library
 	 */
 	virtual bool operator() ( const Atom& value )
 	{
-	    if ( value >= _tol )
+	    if ( value <= _tol )
 		{
 		    logger << progress << "STOP in TolContinue: Reached the tolerance's value [" << _tol << "]" << std::endl;
 		    return false;
