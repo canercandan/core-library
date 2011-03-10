@@ -48,6 +48,7 @@
 #include "BO.h"
 
 #include "Continue.h"
+#include "CombinedContinue.h"
 #include "CheckPoint.h"
 #include "Updater.h"
 #include "Monitor.h"
